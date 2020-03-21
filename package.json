@@ -1,0 +1,20 @@
+{
+  "name": "create-expo-cljs-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "expo",
+    "cljs",
+    "clojure",
+    "clojurescript",
+    "clj",
+    "react-native",
+    "react"
+  ],
+  "author": "Justin Good",
+  "license": "ISC"
+}
