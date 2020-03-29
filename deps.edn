@@ -1,4 +1,4 @@
 {:paths ["src"]
  :deps  {thheller/shadow-cljs   {:mvn/version "2.8.94"}
          github-create-cljs-app {:git/url "https://github.com/jgoodhcg/create-cljs-app"
-                                 :sha     "47b1ca656b1ceccef8ea2f77edea29e5808a20ca"}}}
+                                 :sha     "1f39d4e94267ece0fe9a310a19c9ff65e99c90e2"}}}
