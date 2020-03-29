@@ -1,4 +1,4 @@
 (ns create-expo-cljs-app.lib
-  (:require [create-cljs-app.utils :as utils]))
+  (:require [create-cljs-app.lib :as cca-lib]))
 
-(def exports #js {:testing (utils/exit-with-reason "It's working!")})
+(def exports #js {:create cca-lib/create})
