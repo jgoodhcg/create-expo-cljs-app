@@ -1,6 +1,5 @@
 # Create Expo CLJS App
 
-
 Create Expo ClojureScript apps with a single command.<br>
 It is focused on making it easy for JS and React developers to get started with ClojureScript.
 
@@ -30,9 +29,11 @@ When you’re ready to deploy to production, compile cljs for production release
 ```
 shadow-clj release app
 ```
-And then follow expo instructions to [make a build](https://docs.expo.io/versions/latest/distribution/building-standalone-apps/) or [OTA update](https://docs.expo.io/versions/latest/guides/configuring-ota-updates/).
+And then follow expo instructions to [make a build](https://docs.expo.io/versions/latest/distribution/building-standalone-apps/) or [OTA update](https://docs.expo.io/versions/latest/guides/configuring-ota-updates/**.
 
 ## Creating an App
+
+**You'll need to have expo client and cli tools installed**. Find those [here](https://expo.io/tools).
 
 **You’ll need to have Node 10.16.0 or later version on your local development machine** (but it’s not required on the server). You can use [nvm](https://github.com/creationix/nvm#installation) (macOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows) to easily switch Node versions between different projects.
 
