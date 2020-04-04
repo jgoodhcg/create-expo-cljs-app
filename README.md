@@ -7,7 +7,7 @@ It is focused on making it easy for JS and React developers to get started with 
 Create Expo CLJS App works on Windows, Linux, and macOS.<br>
 If something doesn’t work, please [file an issue](https://github.com/jgoodhcg/create-expo-cljs-app/issues/new).<br>
 
-Inspired by[create-cljs-app](https://github.com/filipesilva/create-cljs-app) and [reagent-expo](https://github.com/thheller/reagent-expo).
+Inspired by [create-cljs-app](https://github.com/filipesilva/create-cljs-app) and [reagent-expo](https://github.com/thheller/reagent-expo).
 
 ## Quick Overview
 
