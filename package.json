@@ -1,6 +1,6 @@
 {
     "name": "create-expo-cljs-app",
-    "version": "1.0.3",
+    "version": "1.0.5",
     "description": "Create a react native application with Expo and Shadow-CLJS!",
     "main": "index.js",
     "bin": {
@@ -32,6 +32,10 @@
         "dist",
         "template"
     ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jgoodhcg/create-expo-cljs-app.git"
+    },
     "author": "Justin Good",
     "license": "ISC"
 }
