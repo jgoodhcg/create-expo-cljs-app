@@ -1,0 +1,10 @@
+
+.cpcache/
+
+.expo/
+
+.shadow-cljs/
+
+build/
+
+node_modules/

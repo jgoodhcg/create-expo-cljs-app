@@ -4,7 +4,7 @@
  {:app
   {:target     :react-native
    :init-fn    app.index/init
-   :output-dir "app"
+   :output-dir "build"
    :devtools   {:autoload true
                 :preloads [shadow.expo.keep-awake]}}
 
