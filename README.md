@@ -29,7 +29,7 @@ When you’re ready to deploy to production, compile cljs for production release
 ```
 shadow-clj release app
 ```
-And then follow expo instructions to [make a build](https://docs.expo.io/versions/latest/distribution/building-standalone-apps/) or [OTA update](https://docs.expo.io/versions/latest/guides/configuring-ota-updates/**.
+And then follow expo instructions to [make a build](https://docs.expo.io/versions/latest/distribution/building-standalone-apps/) or [OTA update](https://docs.expo.io/versions/latest/guides/configuring-ota-updates/).
 
 ## Creating an App
 
