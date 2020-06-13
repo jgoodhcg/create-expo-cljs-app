@@ -24,7 +24,7 @@
 Inside that directory, you can run several commands:
 
   " (blue (:shadow commands)) "
-    Starts the shadow compilter.
+    Starts the shadow compiler.
 
   " (blue (:start commands)) "
     Starts the javascript bundler.
