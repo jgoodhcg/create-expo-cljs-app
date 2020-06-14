@@ -67,7 +67,11 @@
                                  paper/DarkTheme)}
      [:> nav/Router
       [:> nav/Stack {:key "root"}
-       [:> nav/Tabs {:key              "tabbar"
+       ;; to use a custom component for the tab bar check out this
+       ;; https://github.com/aksonov/react-native-router-flux/blob/master/docs/API.md#custom-tab-bar-component
+       [:> nav/Tabs {:key "tabbar"
+                     ;; custom tab bar on press callback gives you a chance to hook into navigation actions
+                     ;; this would be useful for analytics or other fx like data fetching
                      :tab-bar-on-press #(>evt [:navigate (-> %
                                                              (js->clj :keywordize-keys true)
                                                              (:navigation)
