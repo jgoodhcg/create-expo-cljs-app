@@ -1,7 +1,6 @@
-{:deps true
+{:deps  true
  :builds
  {:lib {:exports-var create-expo-cljs-app.lib/exports
         :output-to   "dist/lib.js"
         :target      :node-library}}
- :nrepl        {:port 3333}
- :source-paths ["src"]}
+ :nrepl {:port 3333}}
