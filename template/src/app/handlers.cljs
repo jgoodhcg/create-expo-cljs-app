@@ -1,6 +1,10 @@
 (ns app.handlers
   (:require
-   [re-frame.core :refer [reg-event-db ->interceptor reg-event-fx reg-fx dispatch]]
+   [re-frame.core :refer [reg-event-db
+                          ->interceptor
+                          reg-event-fx
+                          dispatch
+                          debug]]
    [com.rpl.specter :as sp :refer [select select-one setval transform selected-any?]]
    [clojure.spec.alpha :as s]
    [app.db :as db :refer [default-app-db app-db-spec]]))
@@ -14,20 +18,25 @@
       true)))
 
 (defn validate-spec [context]
-  (let [db (-> context :effects :db)
+  (let [db     (-> context :effects :db)
         old-db (-> context :coeffects :db)
-        event (-> context :coeffects :event)]
+        event  (-> context :coeffects :event)]
 
     (if (some? (check-and-throw app-db-spec db event))
-      (assoc-in context [:effects :db] old-db) ;; put the old db back as the new db when check fails
-      context)))                               ;; otherwise return context unchanged
+      (assoc-in context [:effects :db] old-db)
+      ;; put the old db back as the new db when check fails
+      ;; otherwise return context unchanged
+      context)))
 
 (def spec-validation
   (if goog.DEBUG
     (->interceptor
-        :id :spec-validation
-        :after validate-spec)
+      :id :spec-validation
+      :after validate-spec)
     ->interceptor))
+
+(def base-interceptors  [;; (when ^boolean goog.DEBUG debug) ;; use this for some verbose re-frame logging
+                         spec-validation])
 
 (defn initialize-db [_ _]
   default-app-db)
@@ -40,6 +49,11 @@
   (->> db
        (setval [:version] version)))
 
-(reg-event-db :initialize-db [spec-validation] initialize-db)
-(reg-event-db :set-theme [spec-validation] set-theme)
-(reg-event-db :set-version [spec-validation] set-version)
+(defn navigate [cofx [_ screen]]
+  {:db       (assoc (:db cofx) :last-screen screen)
+   :navigate screen})
+
+(reg-event-db :initialize-db [base-interceptors] initialize-db)
+(reg-event-db :set-theme [base-interceptors] set-theme)
+(reg-event-db :set-version [base-interceptors] set-version)
+(reg-event-fx :navigate [base-interceptors] navigate)

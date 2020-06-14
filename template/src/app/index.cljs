@@ -11,6 +11,7 @@
    [reagent.core :as r]
    [re-frame.core :refer [subscribe dispatch dispatch-sync]]
    [shadow.expo :as expo]
+   [app.fx]
    [app.handlers]
    [app.subscriptions]
    [app.helpers :refer [<sub >evt]]))
@@ -66,8 +67,14 @@
                                  paper/DarkTheme)}
      [:> nav/Router
       [:> nav/Stack {:key "root"}
-       [:> nav/Tabs {:key          "tabbar"
-                     :hide-nav-bar true}
+       [:> nav/Tabs {:key              "tabbar"
+                     :tab-bar-on-press #(>evt [:navigate (-> %
+                                                             (js->clj :keywordize-keys true)
+                                                             (:navigation)
+                                                             (:state)
+                                                             (:key)
+                                                             (keyword))])
+                     :hide-nav-bar     true}
         [:> nav/Scene {:key          "home"
                        :title        "Home"
                        :hide-nav-bar true
