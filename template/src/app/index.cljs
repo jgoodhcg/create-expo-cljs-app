@@ -95,6 +95,7 @@
 (defn start
   {:dev/after-load true}
   []
+  (dispatch [:navigate-to-last-screen])
   (expo/render-root (r/as-element [root])))
 
 (def version (-> expo-constants
