@@ -11,7 +11,7 @@ Inspired by [create-cljs-app](https://github.com/filipesilva/create-cljs-app) an
 ## Quick Overview
 
 ```sh
-npx create-cljs-app my-app
+npx create-expo-cljs-app my-app
 cd my-app
 npm start
 ```
