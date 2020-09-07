@@ -1,8 +1,8 @@
 {:paths ["src"]
- :deps  {thheller/shadow-cljs      {:mvn/version "2.9.8"}
-         reagent                   {:mvn/version "1.0.0-alpha2"}
-         re-frame                  {:mvn/version "0.12.0"}
-         appliedscience/js-interop {:mvn/version "0.2.5"}
-         com.rpl/specter           {:mvn/version "1.1.3"}
-         metosin/spec-tools        {:mvn/version "0.10.3"}
-         camel-snake-kebab         {:mvn/version "0.4.1"}}}
+ :deps  {thheller/shadow-cljs       {:mvn/version "2.11.1"}
+         reagent                    {:mvn/version "1.0.0-alpha2"}
+         re-frame                   {:mvn/version "0.12.0"}
+         applied-science/js-interop {:mvn/version "0.2.7"}
+         com.rpl/specter            {:mvn/version "1.1.3"}
+         metosin/spec-tools         {:mvn/version "0.10.4"}
+         camel-snake-kebab          {:mvn/version "0.4.1"}}}

@@ -6,6 +6,7 @@
    ["react" :as react]
    ["react-native-router-flux" :as nav]
    ["react-native-paper" :as paper]
+   [applied-science.js-interop :as j]
    [camel-snake-kebab.core :as csk]
    [camel-snake-kebab.extras :as cske]
    [reagent.core :as r]
@@ -43,7 +44,7 @@
   (r/as-element
     (let [version         (<sub [:version])
           theme-selection (<sub [:theme])
-          theme           (.-theme props)]
+          theme           (j/get props :theme)]
       [:> paper/Surface {:style (.-surface styles)}
        [:> rn/View
         [:> paper/Card
@@ -51,7 +52,10 @@
                                :subtitle "For quick project startup"}]
          [:> paper/Card.Content
           [:> rn/View {:style (.-themeSwitch styles)}
-           [:> paper/Text {:style {:color (->> theme .-colors .-accent)}}
+           [:> paper/Text
+            {:style {:color (-> theme
+                                (j/get :colors)
+                                (j/get :accent))}}
             "Dark mode"]
            [:> paper/Switch {:value           (= theme-selection :dark)
                              :on-value-change #(>evt [:set-theme (if (= theme-selection :dark)
