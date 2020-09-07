@@ -48,9 +48,10 @@
       [:> paper/Surface {:style (.-surface styles)}
        [:> rn/View
         [:> paper/Card
-         [:> paper/Card.Title {:title    "A nice Expo/Shadow-cljs template"
-                               :subtitle "For quick project startup"}]
+         [:> paper/Card.Title {:title    "A nice template"
+                               :subtitle (str "Version: " version)}]
          [:> paper/Card.Content
+          [:> paper/Paragraph "For quick project startup"]
           [:> rn/View {:style (.-themeSwitch styles)}
            [:> paper/Text
             {:style {:color (-> theme
@@ -60,8 +61,7 @@
            [:> paper/Switch {:value           (= theme-selection :dark)
                              :on-value-change #(>evt [:set-theme (if (= theme-selection :dark)
                                                                    :light
-                                                                   :dark)])}]]
-          [:> paper/Paragraph (str "Version: " version)]]]]])))
+                                                                   :dark)])}]]]]]])))
 
 (defn root []
   (let [theme (<sub [:theme])]
