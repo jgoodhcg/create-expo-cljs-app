@@ -18,25 +18,26 @@
 (defn done-msg
   [name path abs-path commands install-failed?]
   (.log
-   js/console
-   (str
-    "\nSuccess! Created " name " at " abs-path "
-Inside that directory, you can run several commands:
+    js/console
+    (str
+      "\nSuccess! Created " name " at " abs-path "\n"
+      "Inside that directory, you can run several commands:\n"
+      "  " (blue (:shadow commands)) "\n"
+      "  Starts the shadow compiler.\n"
+      "  " (blue (:start commands)) "\n"
+      "  Starts the javascript bundler."
 
-  " (blue (:shadow commands)) "
-    Starts the shadow compiler.
 
-  " (blue (:start commands)) "
-    Starts the javascript bundler.
+      "\n\nGet started by: \n  "
 
-We suggest that you begin by: \n  "
-
-    (blue (str "cd " path)) "\n  "
-    (when install-failed? (str (blue (:install commands)) "\n  "))
-    (blue (:shadow commands)) "\n  "
-    "Then in " (yellow "another") " terminal session run:\n  "
-    (blue (:start commands)) "\n\n"
-    "Happy hacking! \n")))
+      (blue (str "cd " path)) "\n  "
+      (when install-failed? (str (blue (:install commands)) "\n  "))
+      (blue (:shadow commands)) "\n  "
+      "Then in " (yellow "another") " terminal session run:\n  "
+      (blue (str "cd " path)) "\n  "
+      (blue (:start commands)) "\n  "
+      "Then in the " (yellow "Expo Client") " Open this app.\n  "
+      "\n\n")))
 
 (defn expo-cli-warning []
   (.log js/console (str (red "Missing expo-cli tool!") "\n"

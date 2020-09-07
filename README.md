@@ -1,19 +1,17 @@
 # Create Expo CLJS App
 
-Create Expo ClojureScript apps with a single command.<br>
-It is focused on making it easy for JS and React developers to get started with ClojureScript.
+*Create Expo ClojureScript apps with a single command.*<br>
+This project focuses on making it easy for JS and React developers to get started with native mobile ClojureScript development.
 
-Create Expo CLJS App works on Windows, Linux, and macOS.<br>
 If something doesn’t work, please [file an issue](https://github.com/jgoodhcg/create-expo-cljs-app/issues/new).<br>
 
-Inspired by [create-cljs-app](https://github.com/filipesilva/create-cljs-app) and [reagent-expo](https://github.com/thheller/reagent-expo).
+Inspired by [create-cljs-app](https://github.com/filipesilva/create-cljs-app) (for web) and [reagent-expo](https://github.com/thheller/reagent-expo).
 
 ## Quick Overview
 
 ```sh
-npx create-expo-cljs-app my-app
+yarn create expo-cljs-app my-app
 cd my-app
-npm start
 ```
 
 Then start the Shadow compiler.
@@ -29,34 +27,22 @@ When you’re ready to deploy to production, compile cljs for production release
 ```
 shadow-clj release app
 ```
+
 And then follow expo instructions to [make a build](https://docs.expo.io/versions/latest/distribution/building-standalone-apps/) or [OTA update](https://docs.expo.io/versions/latest/guides/configuring-ota-updates/).
 
 ## Creating an App
 
-**You'll need to have expo client and cli tools installed**. Find those [here](https://expo.io/tools).
+### Requirements
 
-**You’ll need to have Node 10.16.0 or later version on your local development machine** (but it’s not required on the server). You can use [nvm](https://github.com/creationix/nvm#installation) (macOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows) to easily switch Node versions between different projects.
+**Expo Client and Expo CLI tools**. Find those [here](https://expo.io/tools).
 
-**You'll also need a [Java SDK](https://adoptopenjdk.net/) (Version 8+, Hotspot).**
+**Node 10.16.0 or later version** You can use [nvm](https://github.com/creationix/nvm#installation) (macOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows) to easily switch Node versions between different projects.
 
-To create a new app, you may choose one of the following methods:
+**[Yarn](https://yarnpkg.com/getting-started/install)**
 
-### npx
+**[Java](https://adoptopenjdk.net/)**
 
-```sh
-npx create-expo-cljs-app my-app
-```
-_([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) comes with npm 5.2+ and higher)_
-
-### npm
-
-```sh
-npm init expo-cljs-app my-app
-```
-
-_`npm init <initializer>` is available in npm 6+_
-
-### Yarn
+### To create a new app:
 
 ```sh
 yarn create expo-cljs-app my-app
