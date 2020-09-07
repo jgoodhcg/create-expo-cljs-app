@@ -1,6 +1,6 @@
 {
     "name": "create-expo-cljs-app",
-    "version": "1.0.15",
+    "version": "1.0.16",
     "description": "Create a react native application with Expo and Shadow-CLJS!",
     "main": "index.js",
     "bin": {
