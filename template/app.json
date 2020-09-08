@@ -4,7 +4,6 @@
     "slug": "__NAME__",
     "privacy": "public",
     "entryPoint": "./build/index.js",
-    "sdkVersion": "37.0.0",
     "platforms": [
       "ios",
       "android",

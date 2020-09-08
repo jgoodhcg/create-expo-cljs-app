@@ -8,19 +8,19 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "expo": "^37.0.0",
-    "react": "16.9.0",
-    "react-dom": "16.9.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.0.tar.gz",
+    "expo": "^38.0.0",
+    "react": "16.11.0",
+    "react-dom": "16.11.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz",
     "react-native-gesture-handler": "~1.6.0",
-    "react-native-paper": "^3.5.1",
-    "react-native-reanimated": "~1.7.0",
+    "react-native-paper": "^4.1.0",
+    "react-native-reanimated": "~1.9.0",
     "react-native-router-flux": "^4.2.0",
-    "react-native-screens": "^2.4.0",
-    "react-native-web": "^0.11.7"
+    "react-native-screens": "^2.9.0",
+    "react-native-web": "~0.11.7"
   },
   "devDependencies": {
-    "babel-preset-expo": "^8.1.0",
+    "babel-preset-expo": "^8.2.3",
     "shadow-cljs": "^2.11.1"
   },
   "private": true
