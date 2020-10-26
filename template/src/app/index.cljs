@@ -4,7 +4,8 @@
    ["expo-constants" :as expo-constants]
    ["react-native" :as rn]
    ["react" :as react]
-   ["react-native-router-flux" :as nav]
+   ["@react-navigation/native" :as nav]
+   ["@react-navigation/bottom-tabs" :as bottom-tabs]
    ["react-native-paper" :as paper]
    [applied-science.js-interop :as j]
    [camel-snake-kebab.core :as csk]
@@ -34,25 +35,25 @@
           (clj->js)
           (rn/StyleSheet.create)))
 
-(defn stub-screen [props]
+(defn screen2 [props]
   (r/as-element
-    [:> paper/Surface {:style (.-surface styles)}
+    [:> paper/Surface {:style (-> styles (j/get :surface))}
      [:> rn/View
-      [:> paper/Title (:title (js->clj props :keywordize-keys true))]]]))
+      [:> paper/Title "Screen2"]]]))
 
-(defn home-scene [props]
+(defn screen1 [props]
   (r/as-element
     (let [version         (<sub [:version])
           theme-selection (<sub [:theme])
-          theme           (j/get props :theme)]
-      [:> paper/Surface {:style (.-surface styles)}
+          theme           (-> props (j/get :theme))]
+      [:> paper/Surface {:style (-> styles (j/get :surface))}
        [:> rn/View
         [:> paper/Card
          [:> paper/Card.Title {:title    "A nice template"
                                :subtitle (str "Version: " version)}]
          [:> paper/Card.Content
           [:> paper/Paragraph "For quick project startup"]
-          [:> rn/View {:style (.-themeSwitch styles)}
+          [:> rn/View {:style (-> styles (j/get :themeSwitch))}
            [:> paper/Text
             {:style {:color (-> theme
                                 (j/get :colors)
@@ -63,38 +64,44 @@
                                                                    :light
                                                                    :dark)])}]]]]]])))
 
+(def tab (bottom-tabs/createBottomTabNavigator))
+
+(defn navigator [] (-> tab (j/get :Navigator)))
+
+(defn screen [props] [:> (-> tab (j/get :Screen)) props])
+
 (defn root []
-  (let [theme (<sub [:theme])]
-    [:> paper/Provider {:theme (case theme
-                                 :light paper/DefaultTheme
-                                 :dark  paper/DarkTheme
-                                 paper/DarkTheme)}
-     [:> nav/Router
-      [:> nav/Stack {:key "root"}
-       ;; to use a custom component for the tab bar check out this
-       ;; https://github.com/aksonov/react-native-router-flux/blob/master/docs/API.md#custom-tab-bar-component
-       [:> nav/Tabs {:key "tabbar"
-                     ;; custom tab bar on press callback gives you a chance to hook into navigation actions
-                     ;; this would be useful for analytics or other fx like data fetching
-                     :tab-bar-on-press #(>evt [:navigate (-> %
-                                                             (js->clj :keywordize-keys true)
-                                                             (:navigation)
-                                                             (:state)
-                                                             (:key)
-                                                             (keyword))])
-                     :hide-nav-bar     true}
-        [:> nav/Scene {:key          "home"
-                       :title        "Home"
-                       :hide-nav-bar true
-                       :component    (paper/withTheme home-scene)}]
-        [:> nav/Scene {:key          "screen2"
-                       :hide-nav-bar true
-                       :component    (paper/withTheme stub-screen)
-                       :title        "Screen 2"}]
-        [:> nav/Scene {:key          "screen3"
-                       :hide-nav-bar true
-                       :component    (paper/withTheme stub-screen)
-                       :title        "Screen 3"}]]]]]))
+  (let [theme           (<sub [:theme])
+        !route-name-ref (clojure.core/atom {})
+        !navigation-ref (clojure.core/atom {})]
+
+    [:> paper/Provider
+     {:theme (case theme
+               :light paper/DefaultTheme
+               :dark  paper/DarkTheme
+               paper/DarkTheme)}
+
+     [:> nav/NavigationContainer
+      {:ref             (fn [el] (reset! !navigation-ref el))
+       :on-ready        (fn []
+                          (swap! !route-name-ref merge {:current (-> @!navigation-ref
+                                                                     (j/call :getCurrentRoute)
+                                                                     (j/get :name))}))
+       :on-state-change (fn []
+                          (let [prev-route-name    (-> @!route-name-ref :current)
+                                current-route-name (-> @!navigation-ref
+                                                       (j/call :getCurrentRoute)
+                                                       (j/get :name))]
+                            (if (not= prev-route-name current-route-name)
+                              ;; This is where you can do side effecty things like analytics
+                              (>evt [:some-fx-example (str "New screen encountered " current-route-name)]))
+                            (swap! !route-name-ref merge {:current current-route-name})))}
+
+      [:> (navigator)
+       (screen {:name      "Screen1"
+                :component (paper/withTheme screen1)})
+       (screen {:name      "Screen2"
+                :component (paper/withTheme screen2)})]]]))
 
 (defn start
   {:dev/after-load true}
@@ -103,9 +110,9 @@
   (expo/render-root (r/as-element [root])))
 
 (def version (-> expo-constants
-                 (.-default)
-                 (.-manifest)
-                 (.-version)))
+                 (j/get :default)
+                 (j/get :manifest)
+                 (j/get :version)))
 
 (defn init []
   (dispatch-sync [:initialize-db])
