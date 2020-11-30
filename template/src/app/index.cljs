@@ -66,9 +66,9 @@
 
 (def tab (bottom-tabs/createBottomTabNavigator))
 
-(defn navigator [] (-> tab (j/get :Navigator)))
+(defn tab-navigator [] (-> tab (j/get :Navigator)))
 
-(defn screen [props] [:> (-> tab (j/get :Screen)) props])
+(defn tab-screen [props] [:> (-> tab (j/get :Screen)) props])
 
 (defn root []
   (let [theme           (<sub [:theme])
@@ -97,11 +97,11 @@
                               (>evt [:some-fx-example (str "New screen encountered " current-route-name)]))
                             (swap! !route-name-ref merge {:current current-route-name})))}
 
-      [:> (navigator)
-       (screen {:name      "Screen1"
-                :component (paper/withTheme screen1)})
-       (screen {:name      "Screen2"
-                :component (paper/withTheme screen2)})]]]))
+      [:> (tab-navigator)
+       (tab-screen {:name      "Screen1"
+                    :component (paper/withTheme screen1)})
+       (tab-screen {:name      "Screen2"
+                    :component (paper/withTheme screen2)})]]]))
 
 (defn start
   {:dev/after-load true}
