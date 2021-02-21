@@ -45,14 +45,18 @@
   (r/as-element
     (let [version         (<sub [:version])
           theme-selection (<sub [:theme])
-          theme           (-> props (j/get :theme))]
+          theme           (-> props (j/get :theme))
+          expo-version    (-> expo-constants
+                              (j/get :default)
+                              (j/get :manifest)
+                              (j/get :sdkVersion))]
       [:> paper/Surface {:style (-> styles (j/get :surface))}
        [:> rn/View
         [:> paper/Card
-         [:> paper/Card.Title {:title    "A nice template"
+         [:> paper/Card.Title {:title    "My new expo cljs app!"
                                :subtitle (str "Version: " version)}]
          [:> paper/Card.Content
-          [:> paper/Paragraph "For quick project startup"]
+          [:> paper/Paragraph (str "Using Expo SDK: " expo-version)]
           [:> rn/View {:style (-> styles (j/get :themeSwitch))}
            [:> paper/Text
             {:style {:color (-> theme
