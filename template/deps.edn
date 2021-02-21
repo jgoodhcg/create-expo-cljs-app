@@ -1,8 +1,13 @@
 {:paths ["src"]
- :deps  {thheller/shadow-cljs       {:mvn/version "2.11.1"}
-         reagent                    {:mvn/version "1.0.0-alpha2"}
-         re-frame                   {:mvn/version "1.1.1"}
-         applied-science/js-interop {:mvn/version "0.2.7"}
-         com.rpl/specter            {:mvn/version "1.1.3"}
-         metosin/spec-tools         {:mvn/version "0.10.4"}
-         camel-snake-kebab          {:mvn/version "0.4.1"}}}
+ :deps  {applied-science/js-interop          {:mvn/version "0.2.7"}
+         camel-snake-kebab/camel-snake-kebab {:mvn/version "0.4.1"}
+         com.rpl/specter                     {:mvn/version "1.1.3"}
+         lambdaisland/fetch                  {:mvn/version "0.0.23"}
+         metosin/spec-tools                  {:mvn/version "0.10.4"}
+         metosin/potpuri                     {:mvn/version "0.5.2"}
+         org.clojure/test.check              {:mvn/version "1.1.0"} ;; TODO dev dep?
+         org.clojure/core.async              {:mvn/version "1.3.610"}
+         reagent/reagent                     {:mvn/version "1.0.0-alpha2"}
+         re-frame/re-frame                   {:mvn/version "1.1.1"}
+         tick/tick                           {:mvn/version "0.4.27-alpha"}
+         thheller/shadow-cljs                {:mvn/version "2.11.1"}}}
