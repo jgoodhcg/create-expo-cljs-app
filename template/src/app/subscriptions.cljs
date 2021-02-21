@@ -1,8 +1,6 @@
 (ns app.subscriptions
   (:require [re-frame.core :refer [reg-sub]]
-            [com.rpl.specter :as sp :refer [select
-                                            select-one
-                                            select-one!]]))
+            [com.rpl.specter :as sp :refer [select-one!]]))
 
 (defn version [db _]
   (->> db

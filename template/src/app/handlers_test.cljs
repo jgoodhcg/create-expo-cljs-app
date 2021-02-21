@@ -13,22 +13,25 @@
   (handlers/validate-spec (setup-mocked-context db)))
 
 (deftest handler-initialize-db
-  (let [val (-> (handlers/initialize-db :na :na)
-                (validate)
-                (as-> context
-                    (select-one! [:effects :db] context)))]
-    (is (= val default-app-db))))
+  (testing "app-db initializes"
+    (let [val (-> (handlers/initialize-db :na :na)
+                  (validate)
+                  (as-> context
+                      (select-one! [:effects :db] context)))]
+      (is (= val default-app-db)))))
 
 (deftest handler-set-theme-light
-  (let [val (-> (handlers/set-theme default-app-db [:na :light])
-                (validate)
-                (as-> context
-                    (select-one! [:effects :db :settings :theme] context)))]
-    (is (= val :light))))
+  (testing "theme switches to light"
+    (let [val (-> (handlers/set-theme default-app-db [:na :light])
+                  (validate)
+                  (as-> context
+                      (select-one! [:effects :db :settings :theme] context)))]
+      (is (= val :light)))))
 
 (deftest handler-set-version
-  (let [val (-> (handlers/set-version default-app-db [:na "0.0.1"])
-                (validate)
-                (as-> context
-                    (select-one! [:effects :db :version] context)))]
-    (is (= val "0.0.1"))))
+  (testing "version is set"
+    (let [val (-> (handlers/set-version default-app-db [:na "0.0.1"])
+                  (validate)
+                  (as-> context
+                      (select-one! [:effects :db :version] context)))]
+      (is (= val "0.0.1")))))

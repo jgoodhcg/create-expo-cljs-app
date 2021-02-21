@@ -10,8 +10,6 @@
    ["tailwind-rn" :default tailwind-rn]
 
    [applied-science.js-interop :as j]
-   [camel-snake-kebab.core :as csk]
-   [camel-snake-kebab.extras :as cske]
    [reagent.core :as r]
    [re-frame.core :refer [dispatch-sync]]
    [shadow.expo :as expo]

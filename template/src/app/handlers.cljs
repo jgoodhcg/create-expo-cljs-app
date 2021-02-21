@@ -2,10 +2,8 @@
   (:require
    [re-frame.core :refer [reg-event-db
                           ->interceptor
-                          reg-event-fx
-                          dispatch
-                          debug]]
-   [com.rpl.specter :as sp :refer [select select-one setval transform selected-any?]]
+                          reg-event-fx]]
+   [com.rpl.specter :as sp :refer [setval]]
    [clojure.spec.alpha :as s]
    [app.db :as db :refer [default-app-db app-db-spec]]))
 
@@ -13,6 +11,7 @@
   "Throw an exception if db doesn't have a valid spec."
   [spec db event]
   (when-not (s/valid? spec db)
+    (tap> event)
     (let [explanation (s/explain-str spec db)]
       (throw (str "Spec check failed: " explanation))
       true)))
