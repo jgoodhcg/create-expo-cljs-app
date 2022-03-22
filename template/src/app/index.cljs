@@ -16,7 +16,7 @@
    [re-frame.core :refer [dispatch-sync]]
    [shadow.expo :as expo]
 
-   [app.fx]
+   [app.fx :refer [!navigation-ref]]
    [app.handlers]
    [app.subscriptions]
    [app.helpers :refer [<sub >evt]]))
@@ -48,9 +48,9 @@
       [:> paper/Surface {:style (tw "flex flex-1 justify-center")}
         [:> rn/View
          [:> paper/Card
+          [:> paper/Card.Cover {:source splash-img}]
           [:> paper/Card.Title {:title    "My new expo cljs app!"
                                 :subtitle (str "Version: " version)}]
-          [:> paper/Card.Cover {:source splash-img}]
           [:> paper/Card.Content
            [:> paper/Paragraph (str "Using Expo SDK: " expo-version)]
            [:> rn/View {:style (tw "flex flex-row justify-between")}
@@ -62,7 +62,17 @@
             [:> paper/Switch {:value           (= theme-selection :dark)
                               :on-value-change #(>evt [:set-theme (if (= theme-selection :dark)
                                                                     :light
-                                                                    :dark)])}]]]]]]])))
+                                                                    :dark)])}]]
+           [:> paper/Button {:on-press #(>evt [:navigate "Screen2"])} "Go to other screen"]]]]]])))
+
+(defn screen-other [props]
+  (r/as-element
+   [:> rn/SafeAreaView {:style (tw "flex flex-1")}
+      [:> rn/StatusBar {:visibility "hidden"}]
+      [:> paper/Surface {:style (tw "flex flex-1 justify-center")}
+        [:> rn/View
+         [:> paper/Text "I'm screen 2"]
+         [:> paper/Button {:on-press #(>evt [:navigate "Screen1"])} "Go back"]]]]))
 
 (def stack (rn-stack/createStackNavigator))
 
@@ -77,8 +87,7 @@
 
 (defn root []
   (let [theme           (<sub [:theme])
-        !route-name-ref (clojure.core/atom {})
-        !navigation-ref (clojure.core/atom {})]
+        !route-name-ref (clojure.core/atom {})]
 
      [:> paper/Provider
       {:theme (case theme
@@ -91,8 +100,11 @@
         :on-ready        (fn []
                            (swap! !route-name-ref merge {:current (-> @!navigation-ref
                                                                       (j/call :getCurrentRoute)
-                                                                      (j/get :name))}))
-        :on-state-change (fn []
+                                                                      (j/get :name))})
+                           (>evt [:reset-nav-state]))
+        :on-state-change (fn [state]
+                           (>evt [:save-nav-state state])
+
                            (let [prev-route-name    (-> @!route-name-ref :current)
                                  current-route-name (-> @!navigation-ref
                                                         (j/call :getCurrentRoute)
@@ -105,6 +117,9 @@
        [:> (stack-navigator) {:header-mode "none"}
         (stack-screen {:name      "Screen1"
                        :component (wrap-screen screen-main)
+                       :options   {}})
+        (stack-screen {:name      "Screen2"
+                       :component (wrap-screen screen-other)
                        :options   {}})]]]
   ))
 
