@@ -43,21 +43,21 @@
                              (j/get :manifest)
                              (j/get :sdkVersion))]
 
-     [:> rn/SafeAreaView {:style (tw "flex flex-1")}
-      [:> rn/StatusBar {:visibility "hidden"}]
-      [:> paper/Surface {:style (tw "flex flex-1 justify-center")}
-        [:> rn/View
+     [:> rn/View {:style (tw "h-full")}
+      [:> rn/StatusBar {:hidden true}]
+      [:> paper/Surface {:style (tw "h-full justify-center")}
+        [:> rn/SafeAreaView
          [:> paper/Card
           [:> paper/Card.Cover {:source splash-img}]
           [:> paper/Card.Title {:title    "My new expo cljs app!"
                                 :subtitle (str "Version: " version)}]
           [:> paper/Card.Content
            [:> paper/Paragraph (str "Using Expo SDK: " expo-version)]
-           [:> rn/View {:style (tw "flex flex-row justify-between")}
+           [:> rn/View {:style (tw "flex-row justify-between items-center py-2")}
             [:> paper/Text
              {:style {:color (-> theme
                                  (j/get :colors)
-                                 (j/get :accent))}}
+                                 (j/get :primary))}}
              "Dark mode"]
             [:> paper/Switch {:value           (= theme-selection :dark)
                               :on-value-change #(>evt [:set-theme (if (= theme-selection :dark)
@@ -114,7 +114,7 @@
                                (>evt [:some-fx-example (str "New screen encountered " current-route-name)]))
                              (swap! !route-name-ref merge {:current current-route-name})))}
 
-       [:> (stack-navigator) {:header-mode "none"}
+       [:> (stack-navigator) {:screen-options {:header-shown false}}
         (stack-screen {:name      "Screen1"
                        :component (wrap-screen screen-main)
                        :options   {}})
