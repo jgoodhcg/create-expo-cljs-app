@@ -34,18 +34,17 @@
 (defonce splash-img (js/require "../assets/shadow-cljs.png"))
 
 (defn screen-main [props]
-  (r/as-element
-   (let [version         (<sub [:version])
-         theme-selection (<sub [:theme])
-         theme           (-> props (j/get :theme))
-         expo-version    (-> expo-constants
-                             (j/get :default)
-                             (j/get :manifest)
-                             (j/get :sdkVersion))]
+  (let [version         (<sub [:version])
+        theme-selection (<sub [:theme])
+        theme           (-> props (j/get :theme))
+        expo-version    (-> expo-constants
+                            (j/get :default)
+                            (j/get :manifest)
+                            (j/get :sdkVersion))]
 
-     [:> rn/View {:style (tw "h-full")}
-      [:> rn/StatusBar {:hidden true}]
-      [:> paper/Surface {:style (tw "h-full justify-center")}
+    [:> rn/View {:style (tw "h-full")}
+     [:> rn/StatusBar {:hidden true}]
+     [:> paper/Surface {:style (tw "h-full justify-center")}
         [:> rn/SafeAreaView
          [:> paper/Card
           [:> paper/Card.Cover {:source splash-img}]
@@ -63,16 +62,15 @@
                               :on-value-change #(>evt [:set-theme (if (= theme-selection :dark)
                                                                     :light
                                                                     :dark)])}]]
-           [:> paper/Button {:on-press #(>evt [:navigate "Screen2"])} "Go to other screen"]]]]]])))
+           [:> paper/Button {:on-press #(>evt [:navigate "Screen2"])} "Go to other screen"]]]]]]))
 
-(defn screen-other [props]
-  (r/as-element
-   [:> rn/SafeAreaView {:style (tw "flex flex-1")}
-      [:> rn/StatusBar {:visibility "hidden"}]
-      [:> paper/Surface {:style (tw "flex flex-1 justify-center")}
-        [:> rn/View
-         [:> paper/Text "I'm screen 2"]
-         [:> paper/Button {:on-press #(>evt [:navigate "Screen1"])} "Go back"]]]]))
+(defn screen-other [_]
+  [:> rn/View {:style (tw "h-full")}
+    [:> rn/StatusBar {:hidden true}]
+    [:> paper/Surface {:style (tw "h-full")}
+     [:> rn/SafeAreaView {:style (tw "h-full justify-center")}
+      [:> paper/Text {:variant "displayLarge"} "Screen 2"]
+       [:> paper/Button {:on-press #(>evt [:navigate "Screen1"])} "Go back"]]]])
 
 (def stack (rn-stack/createStackNavigator))
 
@@ -83,7 +81,9 @@
 (defn wrap-screen
   [the-screen]
   (g/gestureHandlerRootHOC
-   (paper/withTheme the-screen)))
+   (paper/withTheme
+    (fn [props]
+      (r/as-element [the-screen props])))))
 
 (defn root []
   (let [theme           (<sub [:theme])
